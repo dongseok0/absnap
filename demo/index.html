@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ABSnap Demo — SaaS Landing Page</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #111827;
+      background: #fff;
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 60px;
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 10;
+    }
+    .nav-logo { font-weight: 700; font-size: 18px; color: #111; }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a { text-decoration: none; color: #6b7280; font-size: 14px; }
+    .nav-links a:hover { color: #111; }
+    .nav-cta {
+      background: #111827; color: #fff;
+      padding: 8px 16px; border-radius: 6px;
+      font-size: 14px; font-weight: 500;
+      text-decoration: none;
+      cursor: pointer; border: none;
+    }
+    .nav-cta:hover { background: #374151; }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 80px 40px 60px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: #eff6ff; color: #1d4ed8;
+      font-size: 12px; font-weight: 600;
+      padding: 4px 12px; border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: 48px; font-weight: 800;
+      line-height: 1.1; letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: #2563eb; }
+    .hero p {
+      font-size: 18px; color: #6b7280;
+      line-height: 1.6; margin-bottom: 36px;
+    }
+    .hero-buttons { display: flex; gap: 12px; justify-content: center; }
+    .btn-primary {
+      background: #2563eb; color: #fff;
+      padding: 14px 28px; border-radius: 8px;
+      font-size: 16px; font-weight: 600;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-secondary {
+      background: #f9fafb; color: #374151;
+      padding: 14px 28px; border-radius: 8px;
+      font-size: 16px; font-weight: 500;
+      text-decoration: none; border: 1px solid #e5e7eb; cursor: pointer;
+    }
+    .btn-secondary:hover { background: #f3f4f6; }
+
+    /* ── Social proof ── */
+    .social-proof {
+      text-align: center;
+      padding: 0 40px 60px;
+      color: #9ca3af; font-size: 13px;
+    }
+    .social-proof strong { color: #6b7280; }
+    .avatar-group {
+      display: flex; justify-content: center; align-items: center;
+      gap: -8px; margin-bottom: 8px;
+    }
+    .avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 2px solid #fff;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      margin-left: -8px;
+      display: inline-block;
+    }
+    .avatar:first-child { margin-left: 0; }
+    .avatar:nth-child(2) { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    .avatar:nth-child(3) { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    .avatar:nth-child(4) { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+
+    /* ── Features ── */
+    .features {
+      background: #f9fafb;
+      padding: 60px 40px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .feature-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .feature-icon { font-size: 28px; margin-bottom: 12px; }
+    .feature-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+    .feature-card p { font-size: 14px; color: #6b7280; line-height: 1.5; }
+
+    /* ── Pricing ── */
+    .pricing { padding: 60px 40px; text-align: center; }
+    .pricing h2 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+    .pricing > p { color: #6b7280; margin-bottom: 40px; }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 28px;
+      text-align: left;
+    }
+    .pricing-card.popular {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+      position: relative;
+    }
+    .popular-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: #2563eb; color: #fff;
+      font-size: 11px; font-weight: 700;
+      padding: 3px 10px; border-radius: 20px;
+    }
+    .plan-name { font-size: 14px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+    .plan-price { font-size: 36px; font-weight: 800; margin-bottom: 4px; }
+    .plan-price span { font-size: 16px; font-weight: 400; color: #9ca3af; }
+    .plan-desc { font-size: 13px; color: #9ca3af; margin-bottom: 20px; }
+    .plan-features { list-style: none; margin-bottom: 24px; }
+    .plan-features li { font-size: 14px; color: #374151; padding: 4px 0; }
+    .plan-features li::before { content: '✓ '; color: #2563eb; font-weight: 700; }
+    .btn-plan {
+      display: block; width: 100%;
+      padding: 10px; border-radius: 8px;
+      font-size: 14px; font-weight: 600;
+      text-align: center; border: none; cursor: pointer;
+      background: #f3f4f6; color: #374151;
+      transition: background 0.15s;
+    }
+    .btn-plan:hover { background: #e5e7eb; }
+    .popular .btn-plan { background: #2563eb; color: #fff; }
+    .popular .btn-plan:hover { background: #1d4ed8; }
+
+    /* ── Testimonial ── */
+    .testimonials { background: #f9fafb; padding: 60px 40px; }
+    .testimonials h2 { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 32px; }
+    .testimonial-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 20px; max-width: 760px; margin: 0 auto;
+    }
+    .testimonial-card {
+      background: #fff; border: 1px solid #e5e7eb;
+      border-radius: 12px; padding: 20px;
+    }
+    .testimonial-card p { font-size: 14px; color: #374151; line-height: 1.6; margin-bottom: 16px; font-style: italic; }
+    .testimonial-author { display: flex; align-items: center; gap: 10px; }
+    .testimonial-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .testimonial-name { font-size: 13px; font-weight: 600; }
+    .testimonial-role { font-size: 12px; color: #9ca3af; }
+
+    /* ── CTA ── */
+    .cta-section {
+      text-align: center; padding: 80px 40px;
+      background: #111827; color: #fff;
+    }
+    .cta-section h2 { font-size: 36px; font-weight: 800; margin-bottom: 12px; }
+    .cta-section p { color: #9ca3af; margin-bottom: 32px; font-size: 16px; }
+    .cta-section .btn-primary { font-size: 16px; padding: 16px 32px; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center; padding: 24px;
+      color: #9ca3af; font-size: 13px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    /* ── Thank you page ── */
+    #thankyou-page {
+      display: none;
+      text-align: center; padding: 120px 40px;
+    }
+    #thankyou-page h1 { font-size: 40px; font-weight: 800; margin-bottom: 12px; }
+    #thankyou-page p { color: #6b7280; font-size: 16px; margin-bottom: 32px; }
+    #thankyou-page a { color: #2563eb; text-decoration: underline; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  MAIN PAGE                                          -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="main-page">
+
+  <!-- Nav -->
+  <nav>
+    <span class="nav-logo">Acme SaaS</span>
+    <div class="nav-links">
+      <a href="#">기능</a>
+      <a href="#">가격</a>
+      <a href="#">사례</a>
+    </div>
+    <button class="nav-cta" data-testid="nav-signup">무료로 시작하기</button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">✨ 지금 바로 무료 체험</div>
+    <h1>팀의 생산성을<br /><span>10배</span> 높이세요</h1>
+    <p>Acme SaaS는 팀이 더 빠르게 협업하고, 더 스마트하게 일할 수 있도록 설계된 올인원 업무 플랫폼입니다.</p>
+    <div class="hero-buttons">
+      <button class="btn-primary cta-button" id="hero-cta" data-testid="hero-cta">무료로 시작하기 →</button>
+      <button class="btn-secondary">데모 보기</button>
+    </div>
+  </section>
+
+  <!-- Social proof -->
+  <div class="social-proof">
+    <div class="avatar-group">
+      <div class="avatar"></div>
+      <div class="avatar"></div>
+      <div class="avatar"></div>
+      <div class="avatar"></div>
+    </div>
+    이미 <strong>2,400+팀</strong>이 사용 중입니다
+  </div>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>빠른 설정</h3>
+        <p>5분 안에 팀 전체를 온보딩하세요. 복잡한 설정 없이 바로 시작합니다.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>보안 최우선</h3>
+        <p>SOC2 인증 완료. 모든 데이터는 AES-256으로 암호화되어 저장됩니다.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>실시간 분석</h3>
+        <p>팀 성과를 실시간으로 확인하고, 데이터 기반 의사결정을 내리세요.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="pricing">
+    <h2>투명한 가격 정책</h2>
+    <p>숨겨진 비용 없이 팀 규모에 맞는 플랜을 선택하세요.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">₩0 <span>/ 월</span></div>
+        <div class="plan-desc">소규모 팀에 적합</div>
+        <ul class="plan-features">
+          <li>최대 3명</li>
+          <li>기본 기능</li>
+          <li>1GB 저장공간</li>
+        </ul>
+        <button class="btn-plan cta-button" data-testid="btn-starter">시작하기</button>
+      </div>
+      <div class="pricing-card popular">
+        <div class="popular-badge">가장 인기</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">₩29,000 <span>/ 월</span></div>
+        <div class="plan-desc">성장하는 팀에 최적</div>
+        <ul class="plan-features">
+          <li>최대 20명</li>
+          <li>모든 기능 포함</li>
+          <li>100GB 저장공간</li>
+          <li>우선 지원</li>
+        </ul>
+        <button class="btn-plan cta-button" id="pricing-cta" data-testid="btn-pro">Pro 시작하기</button>
+      </div>
+      <div class="pricing-card">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price">문의 <span></span></div>
+        <div class="plan-desc">대기업을 위한 맞춤형</div>
+        <ul class="plan-features">
+          <li>무제한 인원</li>
+          <li>SSO / SAML</li>
+          <li>전담 매니저</li>
+        </ul>
+        <button class="btn-plan cta-button" data-testid="btn-enterprise">문의하기</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <h2>고객 후기</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <p>"Acme SaaS 도입 후 팀 회의 시간이 40% 줄었습니다. 이제는 없으면 안 됩니다."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar"></div>
+          <div>
+            <div class="testimonial-name">김지수</div>
+            <div class="testimonial-role">CTO, Startup A</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p>"온보딩이 너무 쉬워서 놀랐어요. 60명 팀을 하루 만에 마이그레이션 했습니다."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"></div>
+          <div>
+            <div class="testimonial-name">박민준</div>
+            <div class="testimonial-role">PM, Corp B</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="cta-section">
+    <h2>지금 바로 시작하세요</h2>
+    <p>신용카드 없이 14일 무료 체험. 언제든 취소 가능.</p>
+    <button class="btn-primary cta-button" id="bottom-cta" data-testid="bottom-cta">무료 체험 시작하기</button>
+  </section>
+
+  <footer>
+    © 2026 Acme SaaS. All rights reserved. — ABSnap 테스트용 데모 페이지
+  </footer>
+
+</div><!-- /#main-page -->
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  THANK YOU PAGE (SPA-style navigation target)       -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="thankyou-page">
+  <div style="font-size: 56px; margin-bottom: 16px">🎉</div>
+  <h1>가입해 주셔서 감사합니다!</h1>
+  <p>이메일을 확인해 주세요. 곧 온보딩 안내를 보내드립니다.</p>
+  <a onclick="showMain()">← 홈으로 돌아가기</a>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  ab.js (loaded from local dev server by default)      -->
+<!-- ═══════════════════════════════════════════════════ -->
+<script>
+  ;(() => {
+    const params = new URLSearchParams(location.search)
+    const siteId = params.get('site') || 'demo_site_001'
+    const script = document.createElement('script')
+    const cdnBase = params.get('cdn') || 'http://localhost:4321'
+    script.src = `${cdnBase.replace(/\/$/, '')}/ab.js?v=${Date.now()}`
+    script.dataset.site = siteId
+    document.currentScript.after(script)
+  })()
+</script>
+
+
+<script>
+  // SPA-style navigation so ab.js pageview goals work
+  function showThankYou() {
+    document.getElementById('main-page').style.display = 'none'
+    document.getElementById('thankyou-page').style.display = 'block'
+    // Push a fake URL so the thank-you pageview goal fires
+    history.pushState({}, '', 'thank-you')
+    window.dispatchEvent(new PopStateEvent('popstate'))
+  }
+  function showMain() {
+    document.getElementById('main-page').style.display = ''
+    document.getElementById('thankyou-page').style.display = 'none'
+    history.pushState({}, '', getHomePath())
+  }
+  function getHomePath() {
+    return location.pathname.replace(/\/thank-you\/?$/, '/') || '/'
+  }
+
+  // Wire up all CTA buttons to navigate to /thank-you
+  document.getElementById('hero-cta').addEventListener('click', showThankYou)
+  document.getElementById('pricing-cta').addEventListener('click', showThankYou)
+  document.getElementById('bottom-cta').addEventListener('click', showThankYou)
+  document.querySelector('[data-testid="nav-signup"]').addEventListener('click', showThankYou)
+</script>
+
+</body>
+</html>

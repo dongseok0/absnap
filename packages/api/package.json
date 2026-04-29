@@ -1,0 +1,21 @@
+{
+  "name": "@absnap/api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "hono": "^4.6.0",
+    "@supabase/supabase-js": "^2.46.0"
+  },
+  "devDependencies": {
+    "wrangler": "^3.91.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0",
+    "@cloudflare/workers-types": "^4.20241218.0"
+  }
+}

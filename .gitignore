@@ -1,0 +1,14 @@
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+packages/extension/*.zip
+docs/store/
+.dev.vars
+supabase/.temp/
+.superpowers/
+docs/superpowers/
+.claude/
+.DS_Store
+*.env
+.env.local

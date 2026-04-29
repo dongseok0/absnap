@@ -1,0 +1,8 @@
+{
+  "name": "absnap",
+  "private": true,
+  "scripts": {
+    "dev:api": "pnpm --filter @absnap/api dev",
+    "test:api": "pnpm --filter @absnap/api test"
+  }
+}

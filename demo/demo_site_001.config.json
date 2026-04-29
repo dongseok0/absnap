@@ -1,0 +1,51 @@
+{
+  "siteId": "demo_site_001",
+  "tests": [
+    {
+      "id": "test_demo_hero",
+      "status": "running",
+      "urlPattern": "/**",
+      "trafficPercent": 100,
+      "variants": [
+        {
+          "id": "control",
+          "weight": 0
+        },
+        {
+          "id": "variant_a",
+          "weight": 100,
+          "mutations": [
+            {
+              "selector": ".hero h1",
+              "type": "html",
+              "value": "팀의 전환율을<br /><span>2배</span> 높이세요"
+            },
+            {
+              "selector": ".hero p",
+              "type": "text",
+              "value": "ABSnap 데모 변형입니다. R2에서 내려온 config가 이 문구를 바꿨습니다."
+            },
+            {
+              "selector": "#hero-cta",
+              "type": "text",
+              "value": "변형 CTA 클릭하기"
+            }
+          ]
+        }
+      ],
+      "goals": [
+        {
+          "id": "goal_hero_click",
+          "type": "click",
+          "selector": "#hero-cta"
+        },
+        {
+          "id": "goal_thankyou_pageview",
+          "type": "pageview",
+          "urlPattern": "**/thank-you"
+        }
+      ],
+      "createdAt": "2026-04-27T00:00:00.000Z"
+    }
+  ]
+}
