@@ -1,13 +1,10 @@
 import { highlightElement, hideHighlight, destroyHighlight } from './highlighter'
 import { createEditorPanel, destroyEditorPanel } from './editor-panel'
 import { generateSelector } from './selector'
+import { isAbsUiElement } from './ui-guards'
 import type { Mutation } from '../shared/types'
 
 let activeMode: 'editor' | 'goal-picker' | null = null
-
-export function isAbsUiElement(target: EventTarget | null): boolean {
-  return target instanceof Element && Boolean(target.closest('[id^="__abs_"]'))
-}
 
 function activate(mode: 'editor' | 'goal-picker') {
   if (activeMode) return
